@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="loading_location">Chargement de la position</string>
+    <string name="app_cannot_run_without_location">Désolé, Cette application ne peut pas fonctionner sans l\'accès à la position !</string>
+    <string name="hint_username">Nom d\'utilisateur</string>
+    <string name="hint_password">Mot de passe</string>
+    <string name="button_connection">Connexion</string>
+    <string name="logging_in">Connexion...</string>
+    <string name="name">Nom</string>
+    <string name="button_signin">S\'inscrire</string>
+    <string name="signin_succefull">Compte créé avec succès !</string>
+    <string name="error_empty">Veuillez remplir tous les champs</string>
+    <string name="incorrect_login">Nom d\'utilisateur ou mot de passe incorrect !</string>
+    <string name="main_desc">Image de présentation</string>
+</resources>

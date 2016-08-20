@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btns_main"
+        android:text="@string/button_signin"
+        android:id="@+id/main_signin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/signin_btn_main" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btns_main"
+        android:text="@string/button_connection"
+        android:id="@+id/main_connect"
+        android:background="@drawable/connect_btn_main"
+        android:layout_above="@+id/main_signin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_img"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/main_connect"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/main_desc"/>
+
+    <com.xolider.nearme.view.TextViewWithDrawable
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/signin_succefull"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:visibility="invisible"
+        android:id="@+id/txtDrawable"/>
+</RelativeLayout>

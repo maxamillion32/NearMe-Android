@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name" translatable="false">NearMe</string>
+    <string name="loading_location">Loading location</string>
+    <string name="app_cannot_run_without_location">Sorry, This app cannot run without position permission !</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="button_connection">Connection</string>
+    <string name="logging_in">Loggin in...</string>
+    <string name="name">Name</string>
+    <string name="button_signin">Sign in</string>
+    <string name="signin_succefull">Your account was succefully created !</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="error_empty">Don\'t leave empty !</string>
+    <string name="incorrect_login">Incorrect username or password !</string>
+    <string name="main_desc">Presentation image</string>
+</resources>
