@@ -98,6 +98,7 @@ public class Connection extends AppCompatActivity {
                        }
                         else {
                            mIncorrect.setVisibility(View.VISIBLE);
+                           mConnect.setText(Connection.this.getResources().getString(R.string.button_connection));
                        }
                     }
 

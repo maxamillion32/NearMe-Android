@@ -12,4 +12,5 @@
     <string name="error_empty">Veuillez remplir tous les champs</string>
     <string name="incorrect_login">Nom d\'utilisateur ou mot de passe incorrect !</string>
     <string name="main_desc">Image de présentation</string>
+    <string name="settings">Paramètres</string>
 </resources>

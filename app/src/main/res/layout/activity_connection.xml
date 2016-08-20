@@ -28,7 +28,7 @@
         android:hint="@string/hint_password"
         android:gravity="center"/>
 
-    <com.xolider.nearme.view.BlueButton
+    <com.xolider.nearme.view.WhiteButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_connection"
@@ -46,6 +46,6 @@
         android:layout_alignEnd="@+id/button_c"
         android:text="@string/incorrect_login"
         android:gravity="center"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@android:color/holo_red_light"
         android:visibility="invisible"/>
 </RelativeLayout>

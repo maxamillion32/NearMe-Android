@@ -1,5 +1,9 @@
 package com.xolider.nearme.utils;
 
+import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
+
 /**
  * Created by Clément on 20/08/2016.
  */

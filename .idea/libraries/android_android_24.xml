@@ -4,8 +4,6 @@
       <root url="jar://$PROJECT_DIR$/../../SDK/platforms/android-24/android.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../SDK/platforms/android-24/android-stubs-src.jar!/src" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

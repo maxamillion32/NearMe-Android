@@ -9,29 +9,29 @@ import android.widget.Button;
 /**
  * Created by Clément on 20/08/2016.
  */
-public class OrangeButton extends Button {
+public class WhiteButton extends Button {
 
-    public OrangeButton(Context c) {
+    public WhiteButton(Context c) {
         super(c);
         init();
     }
 
-    public OrangeButton(Context c, AttributeSet attr) {
+    public WhiteButton(Context c, AttributeSet attr) {
         super(c, attr);
         init();
     }
 
-    public OrangeButton(Context c, AttributeSet attr, int defStyle) {
+    public WhiteButton(Context c, AttributeSet attr, int defStyle) {
         super(c, attr, defStyle);
         init();
     }
 
     public void init() {
         if(Build.VERSION.SDK_INT < 21) {
-            this.setBackgroundColor(getResources().getColor(android.R.color.holo_orange_dark));
+            this.setBackgroundColor(getResources().getColor(android.R.color.white));
         }
         else {
-            this.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.holo_orange_dark)));
+            this.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(android.R.color.white)));
         }
     }
 }

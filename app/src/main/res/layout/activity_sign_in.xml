@@ -40,7 +40,7 @@
         android:layout_alignEnd="@+id/password_s"
         android:gravity="center"/>
 
-    <com.xolider.nearme.view.BlueButton
+    <com.xolider.nearme.view.WhiteButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_signin"

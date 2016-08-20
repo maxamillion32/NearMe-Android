@@ -13,4 +13,5 @@
     <string name="error_empty">Don\'t leave empty !</string>
     <string name="incorrect_login">Incorrect username or password !</string>
     <string name="main_desc">Presentation image</string>
+    <string name="settings">Settings</string>
 </resources>

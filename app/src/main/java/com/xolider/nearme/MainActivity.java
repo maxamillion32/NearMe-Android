@@ -8,22 +8,27 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.system.Os;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.xolider.nearme.utils.Utils;
 import com.xolider.nearme.view.TextViewWithDrawable;
 
 import java.io.File;
@@ -75,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -110,11 +121,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void notifAccountCreated() {
-        TextViewWithDrawable mText = (TextViewWithDrawable)findViewById(R.id.txtDrawable);
+        final TextViewWithDrawable mText = (TextViewWithDrawable)findViewById(R.id.txtDrawable);
         mText.setVisibility(View.VISIBLE);
+        mText.setAlpha(0);
         mText.setY(mText.getY()-100);
         mText.animate()
-                .setDuration(3000)
-                .y(100);
+                .setDuration(1000)
+                .y(100)
+                .alpha(1);
+        new Thread(new Runnable() {
+
+            int lap = 2;
+
+            @Override
+            public void run() {
+                while(lap != 0) {
+                    try {
+                        Thread.sleep(1000);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    lap--;
+                }
+                mText.animate().setDuration(1000).alpha(0);
+            }
+        }).start();
+        SignInActivity.isCreated = false;
     }
 }

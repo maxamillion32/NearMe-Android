@@ -10,22 +10,18 @@
         android:id="@+id/main_signin"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/signin_btn_main" />
+        android:background="@drawable/btns_main" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="@dimen/btns_main"
         android:text="@string/button_connection"
         android:id="@+id/main_connect"
-        android:background="@drawable/connect_btn_main"
+        android:background="@drawable/btns_main"
         android:layout_above="@+id/main_signin"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -33,11 +29,10 @@
         android:id="@+id/main_img"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_above="@+id/main_connect"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:contentDescription="@string/main_desc"/>
+        android:contentDescription="@string/main_desc"
+        android:src="@drawable/ic_location_on_white_24dp"/>
 
     <com.xolider.nearme.view.TextViewWithDrawable
         android:layout_width="wrap_content"
@@ -46,7 +41,19 @@
         android:gravity="center"
         android:text="@string/signin_succefull"
         android:textSize="15sp"
-        android:layout_margin="10dp"
+        android:padding="10dp"
         android:visibility="invisible"
-        android:id="@+id/txtDrawable"/>
+        android:id="@+id/txtDrawable"
+        android:background="@android:color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/main_connect"
+        android:layout_alignParentEnd="true"
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"/>
 </RelativeLayout>
