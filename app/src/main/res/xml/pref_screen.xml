@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:title="@string/pref_run_background"
+        android:defaultValue="true"
+        android:summary="@string/pref_run_background_summary"
+        android:key="run_background"/>
+
+</PreferenceScreen>

@@ -26,5 +26,5 @@
         android:id="@+id/loading_location"
         android:gravity="center"
         android:textSize="@dimen/loading_position_text_size"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

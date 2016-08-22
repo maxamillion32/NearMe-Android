@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
@@ -10,11 +10,26 @@
         <item name="android:editTextColor">@android:color/white</item>
         <item name="homeAsUpIndicator">@drawable/ic_place_black_24dp</item>
         <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
+        <item name="editTextStyle">@style/AppTheme.EditTextStyle</item>
+        <item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
+        <item name="android:keepScreenOn">true</item>
     </style>
 
     <style name="AppTheme.ActionBar" parent="Widget.AppCompat.ActionBar">
-        <item name="displayOptions">showHome|homeAsUp|showTitle</item>
+        <item name="displayOptions">showHome|homeAsUp|showTitle|showCustom</item>
         <item name="background">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@android:color/black</item>
+    </style>
+
+    <style name="AppTheme.SettingsTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@android:color/white</item>
     </style>
 
 </resources>

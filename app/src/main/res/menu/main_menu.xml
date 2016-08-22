@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:enabled="true" android:id="@+id/group_main">
-        <item android:id="@+id/settings_main" android:enabled="true" android:title="@string/settings"/>
-    </group>
+    <item android:id="@+id/settings_main" android:enabled="true" android:title="@string/settings" android:icon="@drawable/ic_settings_black_24dp"
+        app:showAsAction="ifRoom"/>
 
 </menu>

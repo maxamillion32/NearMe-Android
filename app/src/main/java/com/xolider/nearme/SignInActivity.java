@@ -1,34 +1,15 @@
 package com.xolider.nearme;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.xolider.nearme.utils.SigninRequest;
-import com.xolider.nearme.utils.Utils;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
+import java.util.concurrent.ExecutionException;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -59,9 +40,22 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!(mUsernaame.getText().toString().isEmpty() && mPass.getText().toString().isEmpty() && mEmail.getText().toString().isEmpty() && mName.getText().toString().isEmpty())) {
-                    new SigninRequest(SignInActivity.this).execute(mUsernaame.getText().toString(), mPass.getText().toString(), mEmail.getText().toString(), mName.getText().toString());
+                    try {
+                        boolean b = new SigninRequest(SignInActivity.this).execute(mUsernaame.getText().toString(), mPass.getText().toString(), mEmail.getText().toString(), mName.getText().toString()).get();
+                        if(!b) {
+                            mError.setText(getResources().getString(R.string.error_account_exist));
+                            mError.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
                 }
                 else {
+                    mError.setText(getResources().getString(R.string.error_empty));
                     mError.setVisibility(View.VISIBLE);
                 }
             }

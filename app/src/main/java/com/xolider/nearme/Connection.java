@@ -1,6 +1,8 @@
 package com.xolider.nearme;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,25 +11,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.xolider.nearme.utils.User;
-import com.xolider.nearme.utils.Utils;
+import com.xolider.nearme.utils.Session;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.Buffer;
+import java.net.URLConnection;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -82,18 +77,23 @@ public class Connection extends AppCompatActivity {
                        if(str != null && !str.equalsIgnoreCase("error")) {
                            try {
                                JSONObject j = new JSONObject(str);
-                               User u = new User(j.getString("user"), j.getString("img"));
-                               Intent intent = new Intent(Connection.this, LoadingPositionActivity.class);
-                               intent.putExtra("username", u.getUsername());
-                               intent.putExtra("img", u.getImageProfile());
-                               startActivity(intent);
-                               finish();
+                               Session.name = j.getString("user");
+                               Bitmap b = getImage(j.getString("img"));
+                               Session.imgUser = b;
+                               if(Session.loc == null) {
+                                   Intent intent = new Intent(Connection.this, LoadingPositionActivity.class);
+                                   startActivity(intent);
+                                   finish();
+                                   MainActivity.instance.finish();
+                               }
+                               else {
+                                   Intent i = new Intent(Connection.this, BodyNearMe.class);
+                                   startActivity(i);
+                                   finish();
+                               }
                            }
                            catch (JSONException e) {
                                e.printStackTrace();
-                           }
-                           catch (MalformedURLException e1) {
-                               e1.printStackTrace();
                            }
                        }
                         else {
@@ -105,5 +105,40 @@ public class Connection extends AppCompatActivity {
                 }.execute(mUsername.getText().toString(), mPass.getText().toString());
             }
         });
+    }
+
+    public Bitmap getImage(final String imgUrl) {
+        if(imgUrl != null && !imgUrl.isEmpty()) {
+            AsyncTask<Void, Void, Bitmap> asyncTask = new AsyncTask<Void, Void, Bitmap>() {
+                @Override
+                protected Bitmap doInBackground(Void... voids) {
+                    try {
+                        URL url = new URL(imgUrl);
+                        URLConnection urlConnection = url.openConnection();
+                        urlConnection.connect();
+                        Bitmap b = BitmapFactory.decodeStream(urlConnection.getInputStream());
+                        return b;
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            };
+            Bitmap b = null;
+            try {
+                b = asyncTask.execute().get();
+            }
+            catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            return b;
+        }
+        else {
+            return BitmapFactory.decodeResource(getResources(), R.drawable.ic_account_circle_black_24dp);
+        }
     }
 }

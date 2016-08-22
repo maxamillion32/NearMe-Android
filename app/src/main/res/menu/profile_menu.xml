@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/photo_group" android:title="@string/change_img" android:icon="@drawable/ic_add_a_photo_black_24dp"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item android:title="@string/take_photo" android:id="@+id/take_photo"/>
+            <item android:title="@string/change_img" android:id="@+id/change_photo"/>
+        </menu>
+    </item>
+
+</menu>

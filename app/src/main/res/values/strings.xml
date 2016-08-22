@@ -14,4 +14,25 @@
     <string name="incorrect_login">Incorrect username or password !</string>
     <string name="main_desc">Presentation image</string>
     <string name="settings">Settings</string>
+    <string name="longitude" translatable="false">Longitude</string>
+    <string name="latitude" translatable="false">Latitude</string>
+    <string name="profile">Profile</string>
+    <string name="error_account_exist">User or email already exists !</string>
+    <string name="warning">Warning !</string>
+    <string name="gps_disabled">NearMe needs to use GPS. Do you want enable it ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="pref_run_background">Let activity enabled in background</string>
+    <string name="pref_run_background_summary">That allows to NearMe working in background</string>
+    <string name="change_img">Change profile image</string>
+    <string name="take_photo">Take photo</string>
+    <string name="action_select_photo">Select Picture</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-7165489802020798/3709437865</string>
+    <string name="disable_ad">Disable ads</string>
+    <string name="like_rest">Like count:</string>
+    <string name="interstitial_unit_id" translatable="false"></string>
+    <string name="does_wait">You must wait 20 minutes before watching videos</string>
+    <string name="plus_one_like" translatable="false">+1 Like !</string>
+    <string name="max_like">Sorry, you can having at most 15 likes !</string>
 </resources>

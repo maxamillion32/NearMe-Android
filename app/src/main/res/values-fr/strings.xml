@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="loading_location">Chargement de la position</string>
+    <string name="loading_location">Localisation de votre appareil</string>
     <string name="app_cannot_run_without_location">Désolé, Cette application ne peut pas fonctionner sans l\'accès à la position !</string>
     <string name="hint_username">Nom d\'utilisateur</string>
     <string name="hint_password">Mot de passe</string>
@@ -13,4 +13,21 @@
     <string name="incorrect_login">Nom d\'utilisateur ou mot de passe incorrect !</string>
     <string name="main_desc">Image de présentation</string>
     <string name="settings">Paramètres</string>
+    <string name="profile">Profil</string>
+    <string name="error_account_exist">L\'utilisateur ou l\'email existe déjà !</string>
+    <string name="warning">Attention !</string>
+    <string name="gps_disabled">NearMe a besoin d\'utiliser le GPS. Voulez-vous l\'activer ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="pref_run_background">Garder l\'application active en fond de tâche</string>
+    <string name="pref_run_background_summary">Permet à l\'application de travailler en arrière-plan</string>
+    <string name="change_img">Changer l\'image de profil</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="take_photo">Prendre un photo</string>
+    <string name="action_select_photo">Selectionnez une image</string>
+    <string name="disable_ad">Désactiver les publicités</string>
+    <string name="like_rest">J\'aime restant: </string>
+    <string name="does_wait">Vous devez attendre 20 minutes avant de regarder une autre vidéo</string>
+    <string name="plus_one_like"></string>
+    <string name="max_like">Désolé, vous pouvez avoir au maximum 15 likes !</string>
 </resources>
