@@ -114,7 +114,7 @@ public class BodyNearMe extends AppCompatActivity {
             @Override
             public Void doInBackground(Void... params) {
                 try {
-                    URL u = new URL("http://192.168.1.199/NearMe/update_status.php?user=" + getIntent().getStringExtra("user") + "&status=online");
+                    URL u = new URL("http://192.168.1.199/NearMe/update_status.php?user=" + Session.name + "&status=online");
                     HttpURLConnection urlConnection = (HttpURLConnection)u.openConnection();
                     if(urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                         urlConnection.disconnect();
