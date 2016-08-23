@@ -39,10 +39,12 @@ public class SignInActivity extends AppCompatActivity {
         mSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mSignin.setEnabled(false);
                 if(!(mUsernaame.getText().toString().isEmpty() && mPass.getText().toString().isEmpty() && mEmail.getText().toString().isEmpty() && mName.getText().toString().isEmpty())) {
                     try {
                         boolean b = new SigninRequest(SignInActivity.this).execute(mUsernaame.getText().toString(), mPass.getText().toString(), mEmail.getText().toString(), mName.getText().toString()).get();
                         if(!b) {
+                            mSignin.setEnabled(true);
                             mError.setText(getResources().getString(R.string.error_account_exist));
                             mError.setVisibility(View.VISIBLE);
                         }
@@ -57,6 +59,7 @@ public class SignInActivity extends AppCompatActivity {
                 else {
                     mError.setText(getResources().getString(R.string.error_empty));
                     mError.setVisibility(View.VISIBLE);
+                    mSignin.setEnabled(true);
                 }
             }
         });

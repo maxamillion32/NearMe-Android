@@ -2,11 +2,14 @@ package com.xolider.nearme;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +20,11 @@ import com.jirbo.adcolony.AdColony;
 import com.jirbo.adcolony.AdColonyAd;
 import com.jirbo.adcolony.AdColonyAdListener;
 import com.jirbo.adcolony.AdColonyVideoAd;
+import com.xolider.nearme.utils.PeopleAdapter;
 import com.xolider.nearme.utils.Session;
-import com.xolider.nearme.view.TextViewWithDrawable;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,7 +33,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -45,6 +54,8 @@ public class BodyNearMe extends AppCompatActivity {
 
     private int like = getLikes();
 
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +69,41 @@ public class BodyNearMe extends AppCompatActivity {
 
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-7165489802020798~9755971466");
 
-        mAd = (AdView)findViewById(R.id.nearme_ad);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAd.loadAd(adRequest);
+        final HashMap<String, String> hashMap = getPeople();
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            public Void doInBackground(Void... voids) {
+                mAd = (AdView)findViewById(R.id.nearme_ad);
+                final AdRequest adRequest = new AdRequest.Builder().build();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAd.loadAd(adRequest);
+                    }
+                });
+                return null;
+            }
+        }.execute();
 
         AdColony.configure(this, "version:1.0,store:google", APP_ID, ZONE_ID);
 
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            public Void doInBackground(Void... voids) {
+                listView = (ListView)findViewById(R.id.list_people);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        listView.setAdapter(new PeopleAdapter(hashMap, BodyNearMe.this));
+                    }
+                });
+                return null;
+            }
+        }.execute();
     }
 
     @Override
@@ -284,5 +324,70 @@ public class BodyNearMe extends AppCompatActivity {
             e1.printStackTrace();
         }
         return l;
+    }
+
+    public HashMap<String, String> getPeople() {
+        AsyncTask<Void, Void, String> asyncTask = new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... voids) {
+                try {
+                    URL url = new URL("http://192.168.1.199/NearMe/get_people.php?user=" + Session.name);
+                    HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+                    if(urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+                        BufferedReader bf = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                        String line = bf.readLine();
+                        bf.close();
+                        return line;
+                    }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+        String l = null;
+        try {
+            l = asyncTask.execute().get();
+        }
+        catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+        HashMap<String, String> strs = new LinkedHashMap<>();
+        try {
+            JSONArray jsonArray = new JSONArray(l);
+            for(int i = 0; i < jsonArray.length(); i++) {
+                strs.put(jsonArray.getJSONObject(i).getString("user"), jsonArray.getJSONObject(i).getString("img"));
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return strs;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            public Void doInBackground(Void... voids) {
+                try {
+                    URL url = new URL("http://192.168.1.199/NearMe/disconnect.php?user=" + Session.name);
+                    HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
+                    if(urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
+                        urlConnection.disconnect();
+                    }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute();
     }
 }

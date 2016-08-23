@@ -30,4 +30,6 @@
     <string name="does_wait">Vous devez attendre 20 minutes avant de regarder une autre vidéo</string>
     <string name="plus_one_like"></string>
     <string name="max_like">Désolé, vous pouvez avoir au maximum 15 likes !</string>
+    <string name="near_me">NearMe - Autour de moi</string>
+    <string name="location_changed">Position changée !</string>
 </resources>

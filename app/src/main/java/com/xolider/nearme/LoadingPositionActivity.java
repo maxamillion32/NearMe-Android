@@ -14,6 +14,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.xolider.nearme.utils.Session;
 
@@ -68,10 +69,9 @@ public class LoadingPositionActivity extends AppCompatActivity {
             criteria.setCostAllowed(true);
             String provider = locationManager.getBestProvider(criteria, true);
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(provider, 0, 500, new LocationListener() {
+                locationManager.requestLocationUpdates(provider, 5000, 0,  new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
-
                         new AsyncTask<Location, Void, Void>() {
 
                             @Override
@@ -79,7 +79,7 @@ public class LoadingPositionActivity extends AppCompatActivity {
                                 Location loc = l[0];
 
                                 try {
-                                    URL u = new URL("http://192.168.1.199/NearMe/update_loc.php?user=" + getIntent().getStringExtra("user") + "&long=" + loc.getLongitude() + "&lat=" + loc.getLatitude());
+                                    URL u = new URL("http://192.168.1.199/NearMe/update_loc.php?user=" + Session.name + "&long=" + loc.getLongitude() + "&lat=" + loc.getLatitude());
                                     HttpURLConnection urlConnection = (HttpURLConnection)u.openConnection();
                                     if(urlConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                                         urlConnection.disconnect();
@@ -93,11 +93,12 @@ public class LoadingPositionActivity extends AppCompatActivity {
 
                         }.execute(location);
 
-                        Session.loc = location;
-
-                        Intent intent = new Intent(LoadingPositionActivity.this, BodyNearMe.class);
-                        startActivity(intent);
-                        finish();
+                        if(Session.loc == null) {
+                            Intent intent = new Intent(LoadingPositionActivity.this, BodyNearMe.class);
+                            startActivity(intent);
+                            Session.loc = location;
+                            finish();
+                        }
                     }
 
                     @Override

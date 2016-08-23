@@ -16,7 +16,17 @@
         android:gravity="center"
         android:textSize="15sp"
         android:background="@android:color/white"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:theme="@style/AppTheme.TextViewElevationStyle"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_people"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/loc_text"
+        android:layout_alignParentBottom="true" />
 
     <com.google.android.gms.ads.AdView
         android:layout_width="wrap_content"

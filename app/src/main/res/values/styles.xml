@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
@@ -30,6 +30,10 @@
 
     <style name="AppTheme.SettingsTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.TextViewElevationStyle" parent="AppTheme">
+        <item name="android:elevation" tools:targetApi="21">2dp</item>
     </style>
 
 </resources>

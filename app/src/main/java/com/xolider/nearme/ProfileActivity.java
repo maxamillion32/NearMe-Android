@@ -50,6 +50,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getResources().getString(R.string.profile) + " - " + Session.name);
+
         mProfileImg = (ImageView)findViewById(R.id.profil_img);
 
         Bitmap bit = Session.imgUser;

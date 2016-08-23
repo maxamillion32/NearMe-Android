@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +50,7 @@ public class Connection extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mConnect.setText(Connection.this.getResources().getString(R.string.logging_in));
+                mConnect.setEnabled(false);
                 new AsyncTask<String, Void, String>() {
 
                     @Override
@@ -99,6 +101,7 @@ public class Connection extends AppCompatActivity {
                         else {
                            mIncorrect.setVisibility(View.VISIBLE);
                            mConnect.setText(Connection.this.getResources().getString(R.string.button_connection));
+                           mConnect.setEnabled(true);
                        }
                     }
 
