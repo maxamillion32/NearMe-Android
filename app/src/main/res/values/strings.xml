@@ -37,4 +37,6 @@
     <string name="max_like">Sorry, you can having at most 15 likes !</string>
     <string name="near_me">NearMe - Near Me</string>
     <string name="location_changed">Location changed !</string>
+    <string name="get_request">want to chat with you.</string>
+    <string name="chat_request_sent">Your chat request has been sent</string>
 </resources>

@@ -20,6 +20,7 @@ import com.jirbo.adcolony.AdColony;
 import com.jirbo.adcolony.AdColonyAd;
 import com.jirbo.adcolony.AdColonyAdListener;
 import com.jirbo.adcolony.AdColonyVideoAd;
+import com.xolider.nearme.chat.ChatRequestListenerService;
 import com.xolider.nearme.utils.PeopleAdapter;
 import com.xolider.nearme.utils.Session;
 
@@ -69,7 +70,7 @@ public class BodyNearMe extends AppCompatActivity {
 
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-7165489802020798~9755971466");
 
-        final HashMap<String, String> hashMap = getPeople();
+        final ArrayList<String> array = getPeople();
 
         new AsyncTask<Void, Void, Void>() {
 
@@ -98,7 +99,7 @@ public class BodyNearMe extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        listView.setAdapter(new PeopleAdapter(hashMap, BodyNearMe.this));
+                        listView.setAdapter(new PeopleAdapter(array, BodyNearMe.this));
                     }
                 });
                 return null;
@@ -326,7 +327,7 @@ public class BodyNearMe extends AppCompatActivity {
         return l;
     }
 
-    public HashMap<String, String> getPeople() {
+    public ArrayList<String> getPeople() {
         AsyncTask<Void, Void, String> asyncTask = new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... voids) {
@@ -356,17 +357,17 @@ public class BodyNearMe extends AppCompatActivity {
         catch (InterruptedException e1) {
             e1.printStackTrace();
         }
-        HashMap<String, String> strs = new LinkedHashMap<>();
+        ArrayList<String> array = new ArrayList<>();
         try {
             JSONArray jsonArray = new JSONArray(l);
             for(int i = 0; i < jsonArray.length(); i++) {
-                strs.put(jsonArray.getJSONObject(i).getString("user"), jsonArray.getJSONObject(i).getString("img"));
+                array.add(jsonArray.getJSONObject(i).getString("user"));
             }
         }
         catch (JSONException e) {
             e.printStackTrace();
         }
-        return strs;
+        return array;
     }
 
     @Override
@@ -389,5 +390,6 @@ public class BodyNearMe extends AppCompatActivity {
                 return null;
             }
         }.execute();
+        stopService(new Intent(this, ChatRequestListenerService.class));
     }
 }

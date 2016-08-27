@@ -32,4 +32,6 @@
     <string name="max_like">Désolé, vous pouvez avoir au maximum 15 likes !</string>
     <string name="near_me">NearMe - Autour de moi</string>
     <string name="location_changed">Position changée !</string>
+    <string name="get_request">veut parler avec vous.</string>
+    <string name="chat_request_sent">Votre demande de chat à été envoyée </string>
 </resources>

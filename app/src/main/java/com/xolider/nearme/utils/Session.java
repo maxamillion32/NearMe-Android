@@ -11,5 +11,6 @@ public class Session {
     public static Bitmap imgUser;
     public static String name;
     public static Location loc;
+    public static String pass;
 
 }

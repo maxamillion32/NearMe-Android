@@ -1,9 +1,13 @@
 package com.xolider.nearme;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.IBinder;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,25 +16,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.xolider.nearme.chat.ChatRequestListenerService;
 import com.xolider.nearme.utils.Session;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class Connection extends AppCompatActivity {
 
-    private EditText mUsername;
-    private EditText mPass;
+    private TextInputEditText mUsername;
+    private TextInputEditText mPass;
     private Button mConnect;
 
     private TextView mIncorrect;
@@ -40,8 +49,8 @@ public class Connection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
 
-        mUsername = (EditText)findViewById(R.id.username_c);
-        mPass = (EditText)findViewById(R.id.password_c);
+        mUsername = (TextInputEditText) findViewById(R.id.username_c);
+        mPass = (TextInputEditText) findViewById(R.id.password_c);
         mConnect = (Button)findViewById(R.id.button_c);
 
         mIncorrect = (TextView)findViewById(R.id.incorrect_login);
@@ -80,11 +89,21 @@ public class Connection extends AppCompatActivity {
                            try {
                                JSONObject j = new JSONObject(str);
                                Session.name = j.getString("user");
-                               Bitmap b = getImage(j.getString("img"));
+                               Session.pass = mPass.getText().toString();
+                               Bitmap b = getImage();
                                Session.imgUser = b;
                                if(Session.loc == null) {
                                    Intent intent = new Intent(Connection.this, LoadingPositionActivity.class);
                                    startActivity(intent);
+                                   createFileLogin(Session.name, Session.pass);
+                                   new Timer().schedule(new TimerTask() {
+                                       @Override
+                                       public void run() {
+                                           Intent intent1 = new Intent(Connection.this, ChatRequestListenerService.class);
+                                           intent1.putExtra("user", Session.name);
+                                           startService(intent1);
+                                       }
+                                   }, 0, 5000);
                                    finish();
                                    MainActivity.instance.finish();
                                }
@@ -110,13 +129,12 @@ public class Connection extends AppCompatActivity {
         });
     }
 
-    public Bitmap getImage(final String imgUrl) {
-        if(imgUrl != null && !imgUrl.isEmpty()) {
+    public Bitmap getImage() {
             AsyncTask<Void, Void, Bitmap> asyncTask = new AsyncTask<Void, Void, Bitmap>() {
                 @Override
                 protected Bitmap doInBackground(Void... voids) {
                     try {
-                        URL url = new URL(imgUrl);
+                        URL url = new URL("http://192.168.1.199/NearMe/get_image.php?user=" + Session.name + "&width=" + getWindowManager().getDefaultDisplay().getWidth());
                         URLConnection urlConnection = url.openConnection();
                         urlConnection.connect();
                         Bitmap b = BitmapFactory.decodeStream(urlConnection.getInputStream());
@@ -138,10 +156,33 @@ public class Connection extends AppCompatActivity {
             catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
-            return b;
-        }
-        else {
+        if(b == null) {
             return BitmapFactory.decodeResource(getResources(), R.drawable.ic_account_circle_black_24dp);
+        }
+            return b;
+    }
+
+    public void createFileLogin(String user, String pass) {
+        if(!getExternalFilesDir(null).exists()) getExternalFilesDir(null).mkdirs();
+        File f = new File(getExternalFilesDir(null), "login.dat");
+        if(!f.exists()) {
+            try {
+                f.createNewFile();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            FileWriter fw = new FileWriter(f);
+            fw.write("");
+            fw.append(user + "\n");
+            fw.append(pass + "\n");
+            fw.flush();
+            fw.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -29,11 +29,15 @@
     </style>
 
     <style name="AppTheme.SettingsTheme" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@android:color/white</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.TextViewElevationStyle" parent="AppTheme">
         <item name="android:elevation" tools:targetApi="21">2dp</item>
+    </style>
+
+    <style name="AppTheme.WhiteBackground" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
 </resources>

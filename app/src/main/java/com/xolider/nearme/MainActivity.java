@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 switchToSignIgn();
             }
         });
+
+        Toast.makeText(this, Boolean.toString(getPreferences(MODE_PRIVATE).getBoolean("run_background", false)), Toast.LENGTH_SHORT).show();
     }
 
     public void requestForPermsIfNeeded() {
